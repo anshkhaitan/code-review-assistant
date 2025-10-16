@@ -1,0 +1,16 @@
+# Node
+node_modules/
+.env
+uploads/
+dist/
+build/
+.cache/
+.vscode/
+*.log
+.DS_Store
+
+# React build
+frontend/node_modules/
+backend/node_modules/
+frontend/build/
+backend/uploads/

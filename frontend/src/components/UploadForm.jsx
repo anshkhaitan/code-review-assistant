@@ -12,7 +12,9 @@ export default function UploadForm() {
     setLoading(true);
     const fd = new FormData();
     for (const f of files) fd.append("files", f);
-    fd.append("projectName", "DemoProject");
+    if (files && files.length > 0) {
+  fd.append("projectName", files[0].name.replace(/\.[^/.]+$/, "")); // remove extension
+}
 
     try {
       const res = await fetch("http://localhost:4000/api/reviews/upload", {

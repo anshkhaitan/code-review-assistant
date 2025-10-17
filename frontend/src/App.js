@@ -1,53 +1,35 @@
-import React, { useState } from "react";
-import "./App.css";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import UploadForm from "./components/UploadForm";
+import ReportList from "./components/ReportList";
+import ReportDetails from "./components/ReportDetails";
 
-function App() {
-  const [files, setFiles] = useState(null);
-  const [report, setReport] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  async function submit(e) {
-    e.preventDefault();
-    if (!files || files.length === 0) return alert("Choose files");
-    setLoading(true);
-    const fd = new FormData();
-    for (const f of files) fd.append("files", f);
-    fd.append("projectName", "DemoProject");
-
-    const res = await fetch("http://localhost:4000/api/reviews/upload", {
-      method: "POST",
-      body: fd,
-    });
-    const json = await res.json();
-    setReport(json.report);
-    setLoading(false);
-  }
-
+export default function App() {
   return (
-    <div className="App" style={{ padding: 20 }}>
-      <h2>Code Review Assistant — Demo</h2>
-      <form onSubmit={submit}>
-        <input
-          type="file"
-          multiple
-          onChange={(e) => setFiles(e.target.files)}
-        />
-        <button type="submit" style={{ marginLeft: 8 }}>
-          Upload & Review
-        </button>
-      </form>
+    <Router>
+      <div className="min-h-screen bg-gray-100">
+        {/* Navbar */}
+        <nav className="bg-indigo-600 text-white px-6 py-4 shadow-md flex justify-between items-center">
+          <h1 className="font-semibold text-lg">🧠 Code Review Assistant</h1>
+          <div className="space-x-6">
+            <Link to="/" className="hover:underline">
+              Upload
+            </Link>
+            <Link to="/reports" className="hover:underline">
+              Reports
+            </Link>
+          </div>
+        </nav>
 
-      {loading && <p>Analyzing…</p>}
-      {report && (
-        <div style={{ marginTop: 20, textAlign: "left" }}>
-          <h3>Summary</h3>
-          <pre>{JSON.stringify(report.summary, null, 2)}</pre>
-          <h3>Files</h3>
-          <pre>{JSON.stringify(report.files, null, 2)}</pre>
-        </div>
-      )}
-    </div>
+        {/* Main Routes */}
+        <main className="p-6">
+          <Routes>
+            <Route path="/" element={<UploadForm />} />
+            <Route path="/reports" element={<ReportList />} />
+            <Route path="/reports/:id" element={<ReportDetails />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 }
-
-export default App;

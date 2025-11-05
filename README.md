@@ -212,17 +212,4 @@ model Review {
 - 🌐 Multi-language code review (Python, C++, JS, etc.)  
 - 🧠 “Explain This Suggestion” AI Mode  
 
----
 
-## 🧑‍🤝‍🧑 Contributors
-
-| Name | Role |
-|------|------|
-| **Ansh Khaitan** | Full-stack Developer |
-| **Gemini LLM** | AI Analysis Engine |
-| **OpenAI ChatGPT** | Documentation & guidance |
-
----
-
-
-✨ Congratulations — you now have a **complete, professional GitHub README** for your **Code Review Assistant** project!
